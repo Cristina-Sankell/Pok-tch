@@ -1,0 +1,94 @@
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Regular";
+}
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+.container{
+  display: flex;
+  border: solid 1px;
+  border-color: rgba(27, 16, 16, 0.76);
+  border-radius: 20px;
+  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  min-width: 20rem;
+  min-height: 20rem;
+  background: grey;
+}
+.screenPokemon{
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+.pokemonInfo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1.5rem;
+}
+.pokemonSprite{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pokeimg{
+  width:15rem;
+}
+button{
+  color: whitesmoke;
+  background: green;
+  border-radius: 20px;
+  border: solid 1.5px;
+  padding: 0.6rem;
+  border-color: rgba(27, 16, 16, 0.76);
+}
+.buttondiv{
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+button.buttonRandom{
+  transition: .5s;
+  transition-timing-function: ease;
+}
+button:hover{
+  transform: scale(1.1);
+}
+p{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+.types{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.abilities{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+h4{
+  padding: 0.5rem;
+  color: whitesmoke;
+}
+#searchbar{
+  display: flex;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+}
