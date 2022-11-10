@@ -1,6 +1,6 @@
 function fetchPokemon() {
   function load() {
-      const numberOfPokemon = 493;
+      const numberOfPokemon = 649;
       const id = Math.round(Math.random() * (numberOfPokemon - 1)) + 1;
       let url = `https://pokeapi.co/api/v2/pokemon/${id}`;
       fetch(url)
@@ -54,7 +54,16 @@ function savePokemon(){
     name: document.getElementById('pokemonName').innerHTML,
     id: document.getElementById('pokemonNumber').innerHTML,
   }
-  document.getElementById('favpokemonName').innerHTML = favPokemon.name;
-  document.getElementById('favpokemonId').innerHTML = favPokemon.id;
+  let favurl = `https://pokeapi.co/api/v2/pokemon/${favPokemon.id}`;
+fetch(favurl)
+        .then((response) => {
+            return response.json();
+              })
+        .then((data) => {
+                console.log(data);
+                let img = document.getElementById('favpokemonSpriteOne').innerHTML = data['sprites']['front_default'];
+                document.getElementById('favpokemonSpriteOne').setAttribute('src', img);
+              })
+  document.getElementById('favpokemonNameOne').innerHTML = favPokemon.name;
   console.log(favPokemon);
 }
