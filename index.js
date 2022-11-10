@@ -62,7 +62,9 @@ function signUp() {
     };
     users.push(user);
     localStorage.setItem('users', JSON.stringify(users));
-    logIn();
+    let activeUser = user;
+    localStorage.setItem('activeUser', JSON.stringify(activeUser));
+    window.location.href = "home.html";
   };
 }
 
