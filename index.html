@@ -8,25 +8,22 @@
   <title>NativeJs</title>
 </head>
 <body>
-  <h3>Sign up</h3>
-  <form id="form">
+  <form id="login-form">
+    <h3>Log in</h3>
       <input id="username" placeholder="Username" required>
-      <!-- <input id="email" type="email" placeholder="Email"> -->
       <input id="password" type="password" placeholder="Password" required>
-      <!-- <input id="signupbtn" type="submit" value="Skicka"> -->
-      <button id="login-btn" type="submit">Login</button>
+      <button id="login-btn" type="submit">Log in</button>
+      <p>Don't have an acoount?</p>
+      <button id="to-signup-btn" type="button">Sign up now</button>
   </form>
-  <table>
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>Password</th>
-      </tr>
-    </thead>
-    <tbody id="result">
-
-    </tbody>
-  </table>
+  <form id="signup-form">
+    <h3>Sign up</h3>
+    <input id="new-username" placeholder="Username" required>
+    <input id="new-password" type="password" placeholder="Password" required>
+    <button id="signup-btn" type="submit">Sign up</button>
+    <p>Already have an account?</p>
+    <button id="to-login-btn" type="button">To login</button>
+  </form>
   <script src="index.js"></script>
 </body>
 </html>
