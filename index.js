@@ -17,10 +17,6 @@ function fetchPokemon() {
                 document.getElementById('pokemonAbility1').innerHTML = data?.abilities['0']?.ability['name'];
                 document.getElementById('pokemonAbility2').innerHTML = data?.abilities['1']?.ability['name'] || "           ";
                 document.getElementById('pokemonSprite').setAttribute('src', img);
-                    const myObject = {
-                    id:id
-                    }
-                  console.log(myObject)
               })
       };
 
@@ -51,3 +47,14 @@ function fetchPokemon() {
   })
 
   users = JSON.parse(localStorage.getItem('users'));
+
+function savePokemon(){
+
+  let favPokemon = {
+    name: document.getElementById('pokemonName').innerHTML,
+    id: document.getElementById('pokemonNumber').innerHTML,
+  }
+  document.getElementById('favpokemonName').innerHTML = favPokemon.name;
+  document.getElementById('favpokemonId').innerHTML = favPokemon.id;
+  console.log(favPokemon);
+}

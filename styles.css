@@ -4,7 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto Regular";
+  font-family: 'Press Start 2P';
+
 }
 body{
   display: flex;
@@ -48,6 +49,7 @@ button{
   border: solid 1.5px;
   padding: 0.6rem;
   border-color: rgba(27, 16, 16, 0.76);
+  margin-left: 1rem;
 }
 .buttondiv{
   margin-top: 2rem;
@@ -91,4 +93,8 @@ h4{
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
+}
+.favpokemonName{
+  margin-top: 5rem;
+  margin-bottom: 1rem;
 }

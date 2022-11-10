@@ -4,17 +4,17 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Poketch</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
     <script src='index.js'></script>
 </head>
 
 <body onload="fetchPokemon()">
     <main>
-        <input id="searchbar" class="poke-search" onkeyup="search_pokemon()" type="text"
-        name="search" placeholder="Search Pokemon..">
-        </div>
         <div class="container">
             <div class="subcontainer">
                 <div class="screenPokemon">
@@ -46,6 +46,13 @@
 
             </div>
 
+        </div>
+        <div class="favpokemonSprite">
+            <img id="favpokemonSprite"src="">
+        </div>
+        <div>
+           <p id="favpokemonName" class="favpokemonName">Favourite Pokemon</p>
+           <p id="favpokemonId" class="favpokemonId">Favourite Pokemon ID</p>
         </div>
     </main>
 </body>
