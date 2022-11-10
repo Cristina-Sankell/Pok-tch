@@ -1,16 +1,23 @@
-
-
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto Regular";
+  font-family: 'Press Start 2P';
+
 }
 body{
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background: #d73b3b;
+}
+#logocontainer{
+  display: flex;
+  justify-content: center;
+}
+#logo{
+  margin-bottom: 2rem;
 }
 .container{
   display: flex;
@@ -20,7 +27,7 @@ body{
   padding: 1.5rem 1.5rem 3rem 1.5rem;
   min-width: 20rem;
   min-height: 20rem;
-  background: grey;
+  background: #3B4CCA
 }
 .screenPokemon{
   padding: 1.5rem 1.5rem 2rem 1.5rem;
@@ -42,12 +49,13 @@ body{
   width:15rem;
 }
 button{
-  color: whitesmoke;
-  background: green;
+  color: black;
+  background: #FFDE00;
   border-radius: 20px;
   border: solid 1.5px;
   padding: 0.6rem;
   border-color: rgba(27, 16, 16, 0.76);
+  margin-left: 1rem;
 }
 .buttondiv{
   margin-top: 2rem;
@@ -62,7 +70,57 @@ button.buttonRandom{
 button:hover{
   transform: scale(1.1);
 }
-p{
+.pokemonName{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+.pokemonNumber{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+#pokemonType1{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+#pokemonType2{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+#pokemonAbility1{
+  color: rgb(18, 18, 18);
+  text-align: center;
+  width: 100%;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
+}
+#pokemonAbility2{
   color: rgb(18, 18, 18);
   text-align: center;
   width: 100%;
@@ -91,4 +149,18 @@ h4{
   margin-bottom: 2rem;
   margin-left: auto;
   margin-right: auto;
+}
+.favpokemonName{
+  margin-top: 5rem;
+  margin-bottom: 1rem;
+}
+#favpokemonSpriteOne{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+}
+
+#signup-form {
+  display: none;
 }
