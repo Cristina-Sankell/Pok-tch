@@ -1,9 +1,10 @@
 let logOutBtn = document.querySelector('#logout-btn');
 logOutBtn.addEventListener('click', logOut);
+let displayUser = document.querySelector('#display-user');
+displayUser.textContent = JSON.parse(localStorage.getItem('activeUser')).username;
 
 function logOut() {
-  activeUser = {};
-  localStorage.setItem('activeUser', JSON.stringify(activeUser));
+  localStorage.removeItem('activeUser');
   window.location.href = "index.html";
 }
 
