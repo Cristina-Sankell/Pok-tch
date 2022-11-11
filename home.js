@@ -32,13 +32,27 @@ function fetchPokemon() {
 
   load();
 }
+fetch('https://avancera.app/cities/?name'+stringPokemon)
+.then((response) => {
+  return response.json();
+})
+.then(result => {
+  console.log(result)
+  let hej = (result.find(e => e.name === stringPokemon));
+  let list = document.createElement('li')
+  let add = document.getElementById('citiesPokemon');
+  let element = document.createTextNode(hej.name)
+  list.appendChild(element)
+  add.appendChild(list)
+})
 
 function savePokemon() {
+
 
   let favPokemon = {
     name: document.getElementById('pokemonName').innerHTML,
     id: document.getElementById('pokemonNumber').innerHTML,
-  }
+  }/*
   let favurl = `https://pokeapi.co/api/v2/pokemon/${favPokemon.id}`;
   fetch(favurl)
     .then((response) => {
@@ -51,4 +65,38 @@ function savePokemon() {
     })
   document.getElementById('favpokemonNameOne').innerHTML = favPokemon.name;
   console.log(favPokemon);
+  */
+  fetch('https://avancera.app/cities/', {
+    body: JSON.stringify({ name: favPokemon.name, population: parseInt (favPokemon.id) }),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST'
+  })
+  function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
+  delay(500).then(() => favouritePokemon());
+}
+
+function favouritePokemon(){
+  let stringPokemon = document.getElementById('pokemonName').innerHTML;
+  console.log(stringPokemon)
+fetch('https://avancera.app/cities/?name'+stringPokemon)
+.then((response) => {
+  return response.json();
+})
+.then(result => {
+  console.log(result)
+  let hej = (result.find(e => e.name === stringPokemon));
+  let list = document.createElement('li')
+  let add = document.getElementById('citiesPokemon');
+  let element = document.createTextNode(hej.name)
+
+  list.appendChild(element)
+  add.appendChild(list)
+})}
+
+function editList(){
+
 }

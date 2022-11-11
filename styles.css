@@ -27,7 +27,8 @@ body{
   padding: 1.5rem 1.5rem 3rem 1.5rem;
   min-width: 20rem;
   min-height: 20rem;
-  background: #3B4CCA
+  background: #3B4CCA;
+  margin-bottom: 5rem;
 }
 .screenPokemon{
   padding: 1.5rem 1.5rem 2rem 1.5rem;
@@ -170,4 +171,20 @@ h4{
   border: 2px solid #FFDE00;
   border-radius: 3px;
   color: white;
+}
+.containerTwo{
+  display: flex;
+  border: solid 1px;
+  border-color: rgba(27, 16, 16, 0.76);
+  border-radius: 20px;
+  padding: 1rem 1rem 1rem 1rem;
+  min-height: 3rem;
+  background: #3B4CCA;
+  float: right;
+  margin-left: 1rem;
+  margin-top:2.2rem
+}
+#citiesPokemon{
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
