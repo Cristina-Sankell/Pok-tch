@@ -32,19 +32,19 @@ function fetchPokemon() {
 
   load();
 }
-fetch('https://avancera.app/cities/?name'+stringPokemon)
-.then((response) => {
-  return response.json();
-})
-.then(result => {
-  console.log(result)
-  let hej = (result.find(e => e.name === stringPokemon));
-  let list = document.createElement('li')
-  let add = document.getElementById('citiesPokemon');
-  let element = document.createTextNode(hej.name)
-  list.appendChild(element)
-  add.appendChild(list)
-})
+/* fetch('https://avancera.app/cities/?name' + stringPokemon)
+  .then((response) => {
+    return response.json();
+  })
+  .then(result => {
+    console.log(result)
+    let hej = (result.find(e => e.name === stringPokemon));
+    let list = document.createElement('li')
+    let add = document.getElementById('citiesPokemon');
+    let element = document.createTextNode(hej.name)
+    list.appendChild(element)
+    add.appendChild(list)
+  }) */
 
 function savePokemon() {
 
@@ -67,7 +67,7 @@ function savePokemon() {
   console.log(favPokemon);
   */
   fetch('https://avancera.app/cities/', {
-    body: JSON.stringify({ name: favPokemon.name, population: parseInt (favPokemon.id) }),
+    body: JSON.stringify({ name: favPokemon.name, population: parseInt(favPokemon.id) }),
     headers: {
       'Content-Type': 'application/json'
     },
@@ -79,24 +79,85 @@ function savePokemon() {
   delay(500).then(() => favouritePokemon());
 }
 
-function favouritePokemon(){
+function favouritePokemon() {
   let stringPokemon = document.getElementById('pokemonName').innerHTML;
   console.log(stringPokemon)
-fetch('https://avancera.app/cities/?name'+stringPokemon)
-.then((response) => {
-  return response.json();
-})
-.then(result => {
-  console.log(result)
-  let hej = (result.find(e => e.name === stringPokemon));
-  let list = document.createElement('li')
-  let add = document.getElementById('citiesPokemon');
-  let element = document.createTextNode(hej.name)
+  fetch('https://avancera.app/cities/?name' + stringPokemon)
+    .then((response) => {
+      return response.json();
+    })
+    .then(result => {
+      console.log(result)
+      let hej = (result.find(e => e.name === stringPokemon));
+      let list = document.createElement('li')
+      let add = document.getElementById('citiesPokemon');
+      let element = document.createTextNode(hej.name)
 
-  list.appendChild(element)
-  add.appendChild(list)
-})}
+      list.appendChild(element)
+      add.appendChild(list)
+    })
+}
 
-function editList(){
+function editList() {
 
+}
+
+
+let showChartBtn = document.querySelector('#show-chart-btn')
+showChartBtn.addEventListener('click', showChart)
+
+let pokemonId;
+let fetchUrl;
+let chartData = [];
+let chartLabels = [];
+
+for (i = 1; i < 649; i++) {
+  pokemonId = i;
+  fetchUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+  fetch(fetchUrl)
+    .then((response) => response.json())
+    .then((result) => {
+      if (result.height > 29) {
+        chartData.push(result.height);
+        chartLabels.push(result.name);
+      }
+    })
+}
+
+function showChart() {
+  const ctx = document.querySelector('#myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'bar',
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+    data: {
+      labels: chartLabels,
+      datasets: [{
+        label: 'Height',
+        data: chartData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    }
+  })
 }
