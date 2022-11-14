@@ -1,7 +1,20 @@
 let logOutBtn = document.querySelector('#logout-btn');
 logOutBtn.addEventListener('click', logOut);
 let displayUser = document.querySelector('#display-user');
-displayUser.textContent = JSON.parse(localStorage.getItem('activeUser')).username;
+let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+displayUser.textContent = activeUser.username;
+
+console.log(activeUser);
+
+//checkLocalStorage();
+
+/* function checkLocalStorage() {
+  if (activeUser.favPokemons === undefined) {
+    activeUser.favPokemons = [];
+  }
+} */
+
+console.log(activeUser.favPokemons);
 
 function logOut() {
   localStorage.removeItem('activeUser');
@@ -46,11 +59,35 @@ function fetchPokemon() {
     add.appendChild(list)
   }) */
 
+function displayFavorites() {
+  for (i = 0; i < activeUser.favPokemons.length; i++) {
+    let favPokemonName = activeUser.favPokemons[i].name;
+    fetch('https://avancera.app/cities/?name' + favPokemonName)
+      .then((response) => {
+        return response.json();
+      })
+      .then(result => {
+        console.log(result)
+        let fav = (result.find(e => e.name === favPokemonName));
+        let list = document.createElement('li')
+        let add = document.getElementById('citiesPokemon');
+        let element = document.createTextNode(fav.name)
+
+        list.appendChild(element)
+        add.appendChild(list)
+      })
+  }
+
+  //displayFavorites();
+
+
+}
+
+let favPokemon = {};
 function savePokemon() {
 
-
-  let favPokemon = {
-    name: document.getElementById('pokemonName').innerHTML,
+  favPokemon = {
+    name: activeUser.userId + document.getElementById('pokemonName').innerHTML,
     id: document.getElementById('pokemonNumber').innerHTML,
   }/*
   let favurl = `https://pokeapi.co/api/v2/pokemon/${favPokemon.id}`;
@@ -73,6 +110,21 @@ function savePokemon() {
     },
     method: 'POST'
   })
+  //activeUser = JSON.parse(localStorage.getItem('activeUser'))
+  activeUser.favPokemons.push(favPokemon);
+  localStorage.setItem('activeUser', JSON.stringify(activeUser));
+  let users = JSON.parse(localStorage.getItem('users'));
+  console.log(users);
+  if (users.some(e => e.username === activeUser.username)) {
+    let i = users.findIndex(e => e.username === activeUser.username);
+    console.log(i);
+    let user = users[i];
+    console.log(user);
+    user.favPokemons = activeUser.favPokemons;
+    console.log(user.favPokemons);
+    localStorage.setItem('activeUser', JSON.stringify(activeUser));
+  }
+
   function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
@@ -80,7 +132,7 @@ function savePokemon() {
 }
 
 function favouritePokemon() {
-  let stringPokemon = document.getElementById('pokemonName').innerHTML;
+  let stringPokemon = favPokemon.name
   console.log(stringPokemon)
   fetch('https://avancera.app/cities/?name' + stringPokemon)
     .then((response) => {
@@ -96,6 +148,7 @@ function favouritePokemon() {
       list.appendChild(element)
       add.appendChild(list)
     })
+  console.log(activeUser.favPokemons);
 }
 
 function editList() {

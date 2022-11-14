@@ -1,6 +1,9 @@
 let loginForm = document.querySelector('#login-form');
 let signupForm = document.querySelector('#signup-form');
 let user = {};
+let users = JSON.parse(localStorage.getItem('users'));
+console.log(users);
+
 
 checkLocalStorage();
 
@@ -37,12 +40,26 @@ function checkUser() {
 }
 
 function logIn() {
+
+  let users = JSON.parse(localStorage.getItem('users'));
+  let username = document.querySelector('#username').value
+  let i = users.findIndex(e => e.username === username)
+  let userId = users[i].userId
+  let favPokemons = users[i].favPokemons
   let activeUser = {
     username: document.querySelector('#username').value,
-    password: document.querySelector('#password').value
+    password: document.querySelector('#password').value,
+    userId: userId,
+    favPokemons: favPokemons
   };
   localStorage.setItem('activeUser', JSON.stringify(activeUser));
   window.location.href = "home.html";
+}
+
+function getId() {
+  let numberOfIds = 100;
+  let userId = Math.round(Math.random() * (numberOfIds - 1)) + 1;
+  return userId
 }
 
 function signUp() {
@@ -58,7 +75,9 @@ function signUp() {
   } else {
     let user = {
       username: newUsername,
-      password: newPassword
+      password: newPassword,
+      userId: getId(),
+      favPokemons: []
     };
     let users = JSON.parse(localStorage.getItem('users'));
     users.push(user);
