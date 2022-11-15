@@ -101,7 +101,7 @@ function displayFavorites() {
   }
 
 }
-
+//hej
 let favPokemon = {};
 function savePokemon() {
 
