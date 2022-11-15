@@ -3,7 +3,7 @@ logOutBtn.addEventListener('click', logOut);
 let displayUser = document.querySelector('#display-user');
 let activeUser = JSON.parse(localStorage.getItem('activeUser'));
 
-}
+
 if (JSON.parse(localStorage.getItem('activeUser')) !== null){
   displayUser.textContent = activeUser.username;
   displayFavorites()
@@ -58,8 +58,7 @@ function fetchPokemon() {
     list.appendChild(element)
     add.appendChild(list)
   }) */
-let deleteButton;
-let editButton;
+
 /*
 deleteButton.addEventListener('click',deletePokoman)
 function deletePokoman(){
@@ -89,18 +88,25 @@ function displayFavorites() {
         let element = document.createTextNode(fav.name)
         deleteButton = document.createElement('button');
         editButton = document.createElement('button');
-        editButton.setAttribute('id',fav.name + 'edit')
-        deleteButton.setAttribute('id',fav.name + 'delete')
+        editButton.setAttribute('id','edit' + fav.name)
+        editButton.setAttribute('class' ,'editBtn')
+        deleteButton.setAttribute('id', 'delete' + fav.name)
+        deleteButton.setAttribute('class','deleteBtn')
         list.appendChild(element)
         add.appendChild(list)
         list.appendChild(deleteButton)
         list.appendChild(editButton)
         deleteButton.innerText = 'kill'
         editButton.innerText = 'edit'
+        editrPokemon()
+        deleterPokemon()
       })
+
   }
 
 }
+let deleteButton;
+let editButton;
 //hej
 let favPokemon = {};
 function savePokemon() {
@@ -160,14 +166,18 @@ function favouritePokemon() {
       let element = document.createTextNode(fav.name)
       deleteButton = document.createElement('button');
       editButton = document.createElement('button')
-      editButton.setAttribute('id',fav.name + 'edit')
-      deleteButton.setAttribute('id',fav.name + 'delete')
+      editButton.setAttribute('id','edit' + fav.name)
+      editButton.setAttribute('class' ,'editBtn')
+      deleteButton.setAttribute('id', 'delete' + fav.name)
+      deleteButton.setAttribute('class','deleteBtn')
       list.appendChild(element)
       add.appendChild(list)
       list.appendChild(deleteButton)
       list.appendChild(editButton)
       deleteButton.innerText = 'kill'
       editButton.innerText = 'edit'
+      editrPokemon()
+      deleterPokemon()
     })
 }
 
@@ -229,4 +239,44 @@ function showChart() {
       }]
     }
   })
+}
+function editrPokemon(){
+  document.querySelectorAll('.editBtn').forEach(item=>{
+    item.addEventListener('click',event=>{
+      let clickedBtnId = event.target.getAttribute('id')
+      console.log(clickedBtnId)
+    })
+  })
+}
+let slicedId
+let userOne
+function deleterPokemon(){
+  document.querySelectorAll('.deleteBtn').forEach(item=>{
+    item.addEventListener('click',event=>{
+      let clickedBtnId = event.target.getAttribute('id')
+      console.log(clickedBtnId)
+      let buttonClass = (event.target.classList.contains('deleteBtn'))
+      console.log(buttonClass);
+      if (event.target.classList.contains('deleteBtn') === true) {
+        slicedId = clickedBtnId.slice(0,6)
+        findPokeman()
+        console.log(slicedId)
+        localStorage.removeItem(userOne.favPokemons.x)
+      }
+
+    })
+  })
+}
+function findPokeman(){
+  let users = JSON.parse(localStorage.getItem('users'));
+  if (users.some(e => e.username === activeUser.username)) {
+    let i = users.findIndex(e => e.username === activeUser.username);
+    userOne = users[i];
+    console.log(userOne)
+    if (userOne.favPokemons.some(e => e.name === slicedId)){
+      let x = userOne.favPokemons.findIndex(e => e.name === slicedId)
+      console.log(x)
+    }
+  }
+
 }
