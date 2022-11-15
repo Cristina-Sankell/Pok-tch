@@ -90,6 +90,8 @@ function displayFavorites() {
         let element = document.createTextNode(fav.name)
         deleteButton = document.createElement('button');
         editButton = document.createElement('button');
+        editButton.setAttribute('id',fav.name + 'edit')
+        deleteButton.setAttribute('id',fav.name + 'delete')
         list.appendChild(element)
         add.appendChild(list)
         list.appendChild(deleteButton)
@@ -153,12 +155,14 @@ function favouritePokemon() {
       return response.json();
     })
     .then(result => {
-      let hej = (result.find(e => e.name === stringPokemon));
+      let fav = (result.find(e => e.name === stringPokemon));
       let list = document.createElement('li')
       let add = document.getElementById('citiesPokemon');
-      let element = document.createTextNode(hej.name)
+      let element = document.createTextNode(fav.name)
       deleteButton = document.createElement('button');
       editButton = document.createElement('button')
+      editButton.setAttribute('id',fav.name + 'edit')
+      deleteButton.setAttribute('id',fav.name + 'delete')
       list.appendChild(element)
       add.appendChild(list)
       list.appendChild(deleteButton)
