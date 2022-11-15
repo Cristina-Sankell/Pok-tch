@@ -2,13 +2,14 @@ let logOutBtn = document.querySelector('#logout-btn');
 logOutBtn.addEventListener('click', logOut);
 let displayUser = document.querySelector('#display-user');
 let activeUser = JSON.parse(localStorage.getItem('activeUser'));
+console.log(activeUser);
 
 
-if (JSON.parse(localStorage.getItem('activeUser')) !== null){
+if (JSON.parse(localStorage.getItem('activeUser')) !== null) {
   displayUser.textContent = activeUser.username;
   displayFavorites()
 }
-else{
+else {
   window.location.href = "index.html"
 }
 
@@ -74,7 +75,40 @@ function deletePokoman(){
 }
 */
 function displayFavorites() {
-  for (i = 0; i < activeUser.favPokemons.length; i++) {
+
+  fetch('https://avancera.app/cities/')
+    .then((response) => {
+      return response.json();
+    })
+    .then(result => {
+      console.log(result)
+      for (i = 0; i < result.length; i++) {
+        let pokomans = result[i].name;
+        if (pokomans.includes(activeUser.userId)) {
+          let fav = pokomans;
+          let list = document.createElement('li')
+          let add = document.getElementById('citiesPokemon');
+          let element = document.createTextNode(fav)
+          deleteButton = document.createElement('button');
+          editButton = document.createElement('button');
+          editButton.setAttribute('id', fav + 'edit')
+          editButton.setAttribute('class', 'editBtn')
+          deleteButton.setAttribute('id', fav + 'delete')
+          deleteButton.setAttribute('class', 'deleteBtn')
+          list.appendChild(element)
+          add.appendChild(list)
+          list.appendChild(deleteButton)
+          list.appendChild(editButton)
+          deleteButton.innerText = 'kill'
+          editButton.innerText = 'edit'
+          editrPokemon()
+          deleterPokemon()
+        } else {
+          console.log('nej');
+        }
+      }
+    })
+  /* for (i = 0; i < activeUser.favPokemons.length; i++) {
     let favPokemonName = activeUser.favPokemons[i].name;
     fetch('https://avancera.app/cities/?name' + favPokemonName)
       .then((response) => {
@@ -102,7 +136,7 @@ function displayFavorites() {
         deleterPokemon()
       })
 
-  }
+  } */
 
 }
 let deleteButton;
@@ -166,10 +200,10 @@ function favouritePokemon() {
       let element = document.createTextNode(fav.name)
       deleteButton = document.createElement('button');
       editButton = document.createElement('button')
-      editButton.setAttribute('id','edit' + fav.name)
-      editButton.setAttribute('class' ,'editBtn')
-      deleteButton.setAttribute('id', 'delete' + fav.name)
-      deleteButton.setAttribute('class','deleteBtn')
+      editButton.setAttribute('id', fav.name + 'edit')
+      editButton.setAttribute('class', 'editBtn')
+      deleteButton.setAttribute('id', fav.name + 'delete')
+      deleteButton.setAttribute('class', 'deleteBtn')
       list.appendChild(element)
       add.appendChild(list)
       list.appendChild(deleteButton)
@@ -240,9 +274,9 @@ function showChart() {
     }
   })
 }
-function editrPokemon(){
-  document.querySelectorAll('.editBtn').forEach(item=>{
-    item.addEventListener('click',event=>{
+function editrPokemon() {
+  document.querySelectorAll('.editBtn').forEach(item => {
+    item.addEventListener('click', event => {
       let clickedBtnId = event.target.getAttribute('id')
       console.log(clickedBtnId)
     })
@@ -250,33 +284,56 @@ function editrPokemon(){
 }
 let slicedId
 let userOne
-function deleterPokemon(){
-  document.querySelectorAll('.deleteBtn').forEach(item=>{
-    item.addEventListener('click',event=>{
+let polkamon
+let pokemonCitiesId;
+function deleterPokemon() {
+  document.querySelectorAll('.deleteBtn').forEach(item => {
+    item.addEventListener('click', event => {
       let clickedBtnId = event.target.getAttribute('id')
       console.log(clickedBtnId)
       let buttonClass = (event.target.classList.contains('deleteBtn'))
       console.log(buttonClass);
+      polkamon = clickedBtnId.length - 6;
+      console.log(polkamon);
       if (event.target.classList.contains('deleteBtn') === true) {
-        slicedId = clickedBtnId.slice(0,6)
-        findPokeman()
+        let slicedId = clickedBtnId.slice(0, polkamon)
         console.log(slicedId)
-        localStorage.removeItem(userOne.favPokemons.x)
-      }
 
+        pokeUrl = `https://avancera.app/cities/?name=${slicedId}`;
+        fetch(pokeUrl)
+          .then((response) => response.json())
+          .then((result) => {
+            pokemonCitiesId = result[0].id;
+          })
+        function delay(time) {
+          return new Promise(resolve => setTimeout(resolve, time));
+        }
+        delay(500).then(() => deletePokemon());
+      }
     })
   })
 }
-function findPokeman(){
+function findPokeman() {
   let users = JSON.parse(localStorage.getItem('users'));
   if (users.some(e => e.username === activeUser.username)) {
     let i = users.findIndex(e => e.username === activeUser.username);
     userOne = users[i];
     console.log(userOne)
-    if (userOne.favPokemons.some(e => e.name === slicedId)){
+    if (userOne.favPokemons.some(e => e.name === slicedId)) {
       let x = userOne.favPokemons.findIndex(e => e.name === slicedId)
       console.log(x)
     }
   }
+}
+
+function deletePokemon() {
+  fetch('https://avancera.app/cities/' + pokemonCitiesId, {
+    body: JSON.stringify({}),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'DELETE'
+  }
+  )
 
 }
