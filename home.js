@@ -2,7 +2,6 @@ let logOutBtn = document.querySelector('#logout-btn');
 logOutBtn.addEventListener('click', logOut);
 let displayUser = document.querySelector('#display-user');
 let activeUser = JSON.parse(localStorage.getItem('activeUser'));
-function displayList(){
 
 }
 if (JSON.parse(localStorage.getItem('activeUser')) !== null){
@@ -94,8 +93,8 @@ function displayFavorites() {
         add.appendChild(list)
         list.appendChild(deleteButton)
         list.appendChild(editButton)
-        deleteButton.innerText='kill'
-        editButton.innerText='edit'
+        deleteButton.innerText = 'kill'
+        editButton.innerText = 'edit'
       })
   }
 
@@ -163,8 +162,8 @@ function favouritePokemon() {
       add.appendChild(list)
       list.appendChild(deleteButton)
       list.appendChild(editButton)
-      deleteButton.innerText='kill'
-      editButton.innerText='edit'
+      deleteButton.innerText = 'kill'
+      editButton.innerText = 'edit'
     })
 }
 
