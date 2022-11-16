@@ -113,7 +113,6 @@ function createFavList() {
   deleteButton.setAttribute('id', fav + 'delete')
   deleteButton.setAttribute('class', 'deleteBtn')
   list.setAttribute('id', fav)
-  //list.setAttribute('class', 'favListItems')
   list.appendChild(element)
   add.appendChild(list)
   list.appendChild(deleteButton)
@@ -249,13 +248,13 @@ function showChart() {
   const myChart = new Chart(ctx, {
     type: 'bar',
     options: {
-      plugins:{
-        title:{
+      plugins: {
+        title: {
           display: true,
-          text:'thr 20 heighterst los pollos men EVER',
-          color:'#B3A125',
-          font:{
-            size:50,
+          text: 'thr 20 heighterst los pollos men EVER',
+          color: '#B3A125',
+          font: {
+            size: 50,
           },
         },
         legend: {
@@ -264,20 +263,20 @@ function showChart() {
       },
       scales: {
         y: {
-          ticks:{ color: 'black', beginAtZero: true}
+          ticks: { color: 'black', beginAtZero: true }
         },
         x: {
-          ticks:{ color: 'black', beginAtZero: true}
+          ticks: { color: 'black', beginAtZero: true }
         }
       }
     },
     data: {
       labels: chartLabels,
       datasets: [{
-        label:'Height',
+        label: 'Height',
         data: chartData,
         backgroundColor: [
-          '#3B4CCA', '#FFDE00','#FF0000','#B3A125',
+          '#3B4CCA', '#FFDE00', '#FF0000', '#B3A125',
         ],
         borderColor: [
           'rgba(0, 0, 0,)',
