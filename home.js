@@ -243,37 +243,44 @@ for (i = 1; i < 649; i++) {
     })
 }
 
+
 function showChart() {
   const ctx = document.querySelector('#myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
     options: {
+      plugins:{
+        title:{
+          display: true,
+          text:'thr 20 heighterst los pollos men EVER',
+          color:'#B3A125',
+          font:{
+            size:50,
+          },
+        },
+        legend: {
+          display: false,
+        }
+      },
       scales: {
         y: {
-          beginAtZero: true
+          ticks:{ color: 'black', beginAtZero: true}
+        },
+        x: {
+          ticks:{ color: 'black', beginAtZero: true}
         }
       }
     },
     data: {
       labels: chartLabels,
       datasets: [{
-        label: 'Height',
+        label:'Height',
         data: chartData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          '#3B4CCA', '#FFDE00','#FF0000','#B3A125',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(0, 0, 0,)',
         ],
         borderWidth: 1
       }]

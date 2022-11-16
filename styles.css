@@ -28,7 +28,6 @@ body{
   min-width: 20rem;
   min-height: 20rem;
   background: #3B4CCA;
-  margin-bottom: 5rem;
 }
 .screenPokemon{
   padding: 1.5rem 1.5rem 2rem 1.5rem;
@@ -174,17 +173,35 @@ h4{
 }
 .containerTwo{
   display: flex;
+  align-items: center;
   border: solid 1px;
   border-color: rgba(27, 16, 16, 0.76);
   border-radius: 20px;
   padding: 1rem 1rem 1rem 1rem;
   min-height: 3rem;
   background: #3B4CCA;
-  float: right;
-  margin-left: 1rem;
-  margin-top:2.2rem
+  margin-top:2.2rem;
+  background-color: whitesmoke;
+  border: solid 2px;
+  border-radius: 20px;
+  border-color: darkgrey;
+  padding: 0.5rem;
 }
 #citiesPokemon{
   margin-left: 3rem;
   margin-right: 3rem;
+
+}
+.mainContainer{
+  display: flex;
+  padding: 1.5rem 1.5rem 3rem 1.5rem;
+  min-width: 20rem;
+  min-height: 20rem;
+}
+#logout-btn{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#FavPokemonHeader{
+  margin-bottom: 0.5rem;
 }
