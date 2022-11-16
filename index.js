@@ -5,6 +5,8 @@ let signupError = document.querySelector('#signup-error-msg');
 let user = {};
 let users = JSON.parse(localStorage.getItem('users'));
 
+//Kollar i local storage om någon användare finns sparad. Annars skapas en tom
+//array och sparas till local storage
 checkLocalStorage();
 
 function checkLocalStorage() {
@@ -16,12 +18,16 @@ function checkLocalStorage() {
   }
 }
 
+//Kollar om användare är "inloggad". I så fall kommer användaren direkt till home.
 function isLoggedIn() {
   if (localStorage.getItem('activeUser') !== null) {
     window.location.href = "home.html";
   }
 }
 
+//Funktion för att kolla användarnamn och lösenord som skrivs in i inloggningsformuläret.
+//Kollar om användarnamnet finns och om det finns kollas om lösenordet är rätt. Är båda
+//rätt så körs funktionen logIn
 function checkUser() {
   loginError.style.display = 'none'
   let checkUserName = document.querySelector('#username').value;
@@ -42,6 +48,9 @@ function checkUser() {
   }
 }
 
+//Funktion som "loggar in" användare. Användaren hämtas från local storage med hjälp
+//av inputen från inloggningsformuläret och sparas i activeUser, som sparas i
+//local storage. Användaren kommer sedan till home.
 function logIn() {
 
   let users = JSON.parse(localStorage.getItem('users'));
@@ -57,12 +66,22 @@ function logIn() {
   window.location.href = "home.html";
 }
 
+//Eventlistener som lyssnar på login-formuläret och kör funktionen checkUser vid submit
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  checkUser();
+})
+
+//Funktion för att slumpa fram ett id till ny användare.
 function getId() {
   let numberOfIds = 100;
   let userId = Math.round(Math.random() * (numberOfIds - 1)) + 1;
   return userId
 }
 
+//Funktion för att "registrera" en användare. Input kollas så att användarnamnet inte redan
+//är sparat i local storage och så att användarnamn och lösenord är längre än 4 respektive
+//6 tecken. Är allt ok så sparas användaren till local storage.
 function signUp() {
   signupError.style.display = 'none';
   let newUsername = document.querySelector('#new-username').value;
@@ -92,22 +111,20 @@ function signUp() {
   };
 }
 
-loginForm.addEventListener('submit', (e) => {
+//Eventlistener som lyssnar på sign up-formuläret och kör funktionen signUp vid submit
+signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  checkUser();
+  signUp();
 })
 
+//Lyssnare för knapp som visar formulär för att lägga till ny användare
 let toSignUpBtn = document.querySelector('#to-signup-btn').addEventListener('click', () => {
   loginForm.style.display = 'none';
   signupForm.style.display = 'block';
 })
 
+//Lyssnare för knapp som visar inloggningsformuläret
 let toLogInBtn = document.querySelector('#to-login-btn').addEventListener('click', () => {
   signupForm.style.display = 'none';
   loginForm.style.display = 'block';
-})
-
-signupForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  signUp();
 })

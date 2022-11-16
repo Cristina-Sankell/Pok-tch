@@ -5,7 +5,10 @@ editNameForm.style.display = 'none';
 let displayUser = document.querySelector('#display-user');
 let activeUser = JSON.parse(localStorage.getItem('activeUser'));
 
-
+//Kollar om användare är "inloggad", alltså om activeUser finns i local storage.
+//Finns activeUser så skrivs användarnamnet ut och användarens sparade favoriter
+//hämtas från cities-tjänsten
+//Finns inte activeUser så kommer användaren tillbaka till index-sidan
 if (JSON.parse(localStorage.getItem('activeUser')) !== null) {
   displayUser.textContent = activeUser.username;
   displayFavorites()
@@ -13,6 +16,9 @@ if (JSON.parse(localStorage.getItem('activeUser')) !== null) {
   window.location.href = "index.html"
 }
 
+
+//"Loggar ut" användaren och tar bort activeUser från local storage.
+//Användaren kommer till index-sidan
 function logOut() {
   localStorage.removeItem('activeUser');
   window.location.href = "index.html";
@@ -20,6 +26,8 @@ function logOut() {
 
 
 //Get random Pokemon from api
+//Funktion som hämtar slumpade Pokemon från API och visar upp namn, sprite och
+//olika data om hämtad Pokemon.
 function fetchPokemon() {
   function load() {
     const numberOfPokemon = 649;
@@ -44,7 +52,8 @@ function fetchPokemon() {
 }
 
 
-//Save and display Pokemons in favorite list
+//Display Pokemons in favorite list
+//Hämtar data från cities-tjänsten och plockar ut en användares sparade Pokemon
 let fav;
 function displayFavorites() {
 
@@ -63,6 +72,9 @@ function displayFavorites() {
     })
 }
 
+
+//Sparar ner Pokemon till cities-tjänsten med användares användar-id som prefix
+//till namnet
 let favPokemon = {};
 function savePokemon() {
 
@@ -70,6 +82,7 @@ function savePokemon() {
     name: activeUser.userId + document.getElementById('pokemonName').innerHTML,
     id: document.getElementById('pokemonNumber').innerHTML,
   }
+  fav = favPokemon.name;
   fetch('https://avancera.app/cities/', {
     body: JSON.stringify({ name: favPokemon.name, population: parseInt(favPokemon.id) }),
     headers: {
@@ -80,20 +93,7 @@ function savePokemon() {
   function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
-  delay(500).then(() => favouritePokemon());
-}
-
-function favouritePokemon() {
-  let stringPokemon = favPokemon.name
-  fetch('https://avancera.app/cities/?name' + stringPokemon)
-    .then((response) => {
-      return response.json();
-    })
-    .then(result => {
-      let favObj = (result.find(e => e.name === stringPokemon));
-      fav = favObj.name;
-      createFavList();
-    })
+  delay(500).then(() => createFavList());
 }
 
 let deleteButton;
@@ -102,6 +102,8 @@ let list;
 let add;
 let element;
 
+//Skapar li-element samt buttons för att kunna visa och ta bort/ändra sparade
+//Pokemon
 function createFavList() {
   list = document.createElement('li')
   add = document.getElementById('citiesPokemon');
@@ -124,7 +126,6 @@ function createFavList() {
 }
 
 
-//Delete and edit Pokemons in Favorite list
 let slicedId;
 let userOne;
 let polkamon;
@@ -133,7 +134,7 @@ let favListItem;
 let newName
 let newCitiesName;
 
-
+//Funktion för att ändra namn på favorit-Pokemon
 function editrPokemon() {
   document.querySelectorAll('.editBtn').forEach(item => {
     item.addEventListener('click', (event) => {
@@ -169,6 +170,8 @@ function editrPokemon() {
   })
 }
 
+
+//Funktion för att ta bort favorit-Pokemon
 function deleterPokemon() {
   document.querySelectorAll('.deleteBtn').forEach(item => {
     item.addEventListener('click', event => {
@@ -192,6 +195,7 @@ function deleterPokemon() {
   })
 }
 
+//Funktion som tar bort sparad Pokemon från cities-tjänsten
 function deletePokemon() {
   fetch('https://avancera.app/cities/' + pokemonCitiesId, {
     body: JSON.stringify({}),
@@ -203,6 +207,7 @@ function deletePokemon() {
   favListItem.style.display = 'none';
 }
 
+//Funktion som ändrar namn på sparad Pokemon i cities-tjänsten
 function patchPokemon() {
   console.log('patching');
   fetch('https://avancera.app/cities/' + pokemonCitiesId, {
@@ -220,7 +225,7 @@ function patchPokemon() {
 
 
 
-//CHart with chart.js
+//Knapp med eventListener för att öppna tabell över längsta Pokemon
 let showChartBtn = document.querySelector('#show-chart-btn')
 showChartBtn.addEventListener('click', showChart)
 
@@ -229,6 +234,8 @@ let fetchUrl;
 let chartData = [];
 let chartLabels = [];
 
+//Loopar igenom och hämtar Pokemon och sparar ner de som har en 'height'
+//över 29
 for (i = 1; i < 649; i++) {
   pokemonId = i;
   fetchUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
@@ -242,8 +249,9 @@ for (i = 1; i < 649; i++) {
     })
 }
 
-
+//Tabell med chart.js som visar de längsta Pokemon från API:t
 function showChart() {
+  showChartBtn.style.display = 'none';
   const ctx = document.querySelector('#myChart').getContext('2d');
   const myChart = new Chart(ctx, {
     type: 'bar',
