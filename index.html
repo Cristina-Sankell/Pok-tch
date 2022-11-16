@@ -11,8 +11,11 @@
   <title>Poketch - Log in</title>
 </head>
 <body>
+  <main>
+  <div id="logocontainer"><img id="logo" src="poketch.png"></div>
   <form id="login-form" class="auth-form">
     <h3>Log in</h3>
+    <p id="login-error-msg"></p>
       <input id="username" placeholder="Username" required>
       <input id="password" type="password" placeholder="Password" required>
       <button id="login-btn" type="submit">Log in</button>
@@ -21,12 +24,14 @@
   </form>
   <form id="signup-form" class="auth-form">
     <h3>Sign up</h3>
+    <p id="signup-error-msg"></p>
     <input id="new-username" placeholder="Username" required>
     <input id="new-password" type="password" placeholder="Password" required>
     <button id="signup-btn" type="submit">Sign up</button>
     <p>Already have an account?</p>
     <button id="to-login-btn" type="button">To login</button>
   </form>
+</main>
   <script src="index.js"></script>
 </body>
 </html>

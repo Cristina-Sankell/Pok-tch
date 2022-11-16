@@ -1,9 +1,9 @@
 let loginForm = document.querySelector('#login-form');
 let signupForm = document.querySelector('#signup-form');
+let loginError = document.querySelector('#login-error-msg');
+let signupError = document.querySelector('#signup-error-msg');
 let user = {};
 let users = JSON.parse(localStorage.getItem('users'));
-console.log(users);
-
 
 checkLocalStorage();
 
@@ -23,6 +23,7 @@ function isLoggedIn() {
 }
 
 function checkUser() {
+  loginError.style.display = 'none'
   let checkUserName = document.querySelector('#username').value;
   let checkPassword = document.querySelector('#password').value;
   let users = JSON.parse(localStorage.getItem('users'));
@@ -32,10 +33,12 @@ function checkUser() {
     if (users[i].username === checkUserName && users[i].password === checkPassword) {
       logIn();
     } else {
-      console.log('Sorry, wrong password')
+      loginError.style.display = 'block'
+      loginError.textContent = "Sorry, wrong password. Try again"
     }
   } else {
-    console.log('Sorry, wrong username')
+    loginError.style.display = 'block'
+    loginError.textContent = "Sorry, wrong username. Try again"
   }
 }
 
@@ -45,12 +48,10 @@ function logIn() {
   let username = document.querySelector('#username').value
   let i = users.findIndex(e => e.username === username)
   let userId = users[i].userId
-  let favPokemons = users[i].favPokemons
   let activeUser = {
     username: document.querySelector('#username').value,
     password: document.querySelector('#password').value,
     userId: userId,
-    favPokemons: favPokemons
   };
   localStorage.setItem('activeUser', JSON.stringify(activeUser));
   window.location.href = "home.html";
@@ -63,21 +64,24 @@ function getId() {
 }
 
 function signUp() {
+  signupError.style.display = 'none';
   let newUsername = document.querySelector('#new-username').value;
   let newPassword = document.querySelector('#new-password').value;
   let users = JSON.parse(localStorage.getItem('users'));
   if (users.some(e => e.username === newUsername)) {
-    console.log('username already in use');
+    signupError.style.display = 'block';
+    signupError.textContent = 'Username is already in use. Try a different one'
   } else if (newUsername.length < 4) {
-    console.log('username must be at least 4 characters');
+    signupError.style.display = 'block'
+    signupError.textContent = 'Username must be at least 4 characters'
   } else if (newPassword.length < 6) {
-    console.log('password must be at least 6 characters');
+    signupError.style.display = 'block'
+    signupError.textContent = 'Password must be at least 6 characters long'
   } else {
     let user = {
       username: newUsername,
       password: newPassword,
       userId: getId(),
-      favPokemons: []
     };
     let users = JSON.parse(localStorage.getItem('users'));
     users.push(user);
@@ -86,21 +90,6 @@ function signUp() {
     localStorage.setItem('activeUser', JSON.stringify(activeUser));
     window.location.href = "home.html";
   };
-}
-function loginError() {
-  let loginErrorText = document.createElement('p');
-  let loginFirstInput = document.querySelector('#username')
-  loginForm.insertBefore(loginErrorText, loginFirstInput);
-  loginErrorText.textContent = errorText;
-  loginErrorText.classList.add('error-message')
-}
-
-function signupError() {
-  let signupErrorText = document.createElement('p');
-  let signupFirstInput = document.querySelector('#new-username')
-  signupForm.insertBefore(signupErrorText, signupFirstInput);
-  signupErrorText.textContent = errorText;
-  signupErrorText.classList.add('error-message')
 }
 
 loginForm.addEventListener('submit', (e) => {
